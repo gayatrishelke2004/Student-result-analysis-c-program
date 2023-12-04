@@ -1,0 +1,75 @@
+#include<iostream>
+using namespace std;
+class Analysis
+{
+    int id;
+    int res;
+public:
+    void setData(int sid,int sres)
+    {
+       
+        if(sid<=0)
+        {
+           
+            throw "Invalid student ID. It must be positive.\n";
+        }
+       
+        if(sres!=1 && sres!=2)
+        {
+           
+            throw "Invalid result. It must be either 1 or 2.\n";
+        }
+        id=sid;
+        res=sres;
+    }
+    void display()
+    {
+        cout<<"\t"<<id<<"\t"<<res<<"\n";
+    }
+};
+
+int main()
+{
+    Analysis a[10];
+    int i;
+    int sres,sid;
+    int pass=0;
+    int fail=0;
+    
+    for(i=0;i<10;i++)
+    {
+       
+        try
+        {
+            cout<<"Enter Student ID : ";
+            cin>>sid;
+            cout<<"Enter 1 for pass and 2 for Fail : ";
+            cin>>sres;
+            
+            a[i].setData(sid,sres);
+            if(sres==1)
+                pass++;
+            else
+                fail++;
+        }
+        
+        catch(const char* msg)
+        {
+           
+            cout<<msg;
+            
+            i--;
+        }
+    }
+    cout<<"\tID "<<"Result \n";
+    
+    for(i=0;i<10;i++)
+    {
+        a[i].display();
+    }
+    cout<<"\tNo of Passed student :\t"<<pass<<"\n";
+    cout<<"\tNo of Failed student :\t"<<fail<<"\n";
+    if(pass>8)
+        cout<<"\tRaise Tution..!\n";
+    return 0;
+}
