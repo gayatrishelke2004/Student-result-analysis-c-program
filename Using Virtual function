@@ -1,0 +1,96 @@
+#include<iostream> 
+using namespace std; 
+class Analysis 
+{ 
+    protected: 
+      int id; 
+      int res; 
+    public:   
+     Analysis()
+     {
+         id = 0; 
+         res = 0; 
+     }
+     Analysis(int sid, int sres) 
+     {
+         id = sid; 
+         res = sres; 
+     }
+     ~Analysis()
+     {
+        
+     }
+     void setData(int sid,int sres)
+     { 
+      id=sid; 
+      res=sres; 
+     } 
+     virtual void display() 
+     { 
+      cout<<"\t"<<id<<"\t"<<res<<"\n"; 
+     } 
+}; 
+class Result: public Analysis 
+{ 
+    private:
+    static int pass;
+    static int fail;
+    public: 
+    Result() 
+    { 
+       
+    } 
+    Result(int sid, int sres)
+    : Analysis(sid, sres) 
+    { 
+       
+    }
+    ~Result() 
+    {
+       
+    }
+    void display() 
+    { 
+        cout<<"\t"<<id<<"\t"<<res<<"\n"; 
+    } 
+    void calculate()
+    { 
+        if(res == 1) 
+            pass++; 
+        else 
+            fail++; 
+    }
+    void show() 
+    { 
+        cout<<"\tNo of Passed student :\t"<<pass; 
+        cout<<"\tNo of Failed student :\t"<<fail; 
+        if(pass>8) 
+            cout<<"\n\tRaise Tution..!"; 
+    } 
+}; 
+int Result::pass = 0;
+int Result::fail = 0;
+int main() 
+{ 
+  Analysis *students[10]; 
+  int i; 
+  int sres,sid; 
+  for(i=0;i<10;i++) 
+  { 
+    cout<<"Enter Student ID : "; 
+    cin>>sid; 
+    cout<<"Enter 1 for pass and 2 for Fail : "; 
+    cin>>sres; 
+    students[i] = new Result(sid,sres); 
+  } 
+  cout<<"\tID "<<"Result \n"; 
+  for(i=0;i<10;i++) 
+  { 
+    students[i]->display(); 
+    ((Result*)students[i])->calculate(); 
+    delete students[i]; 
+  } 
+  Result r;  
+  r.show(); 
+  return 0; 
+}
